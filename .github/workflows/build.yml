@@ -103,6 +103,7 @@ jobs:
           git clone https://github.com/TheWildJames/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
           git clone https://gitlab.com/simonpunk/susfs4ksu.git -b "$SUSFS_BRANCH"
           git clone https://github.com/TheWildJames/kernel_patches.git
+          git clone https://github.com/0x-br0k3n/nh_kernel_patches.git
 
       - name: Initialize and Sync Kernel Source
         run: |
@@ -117,6 +118,39 @@ jobs:
           # Sync repo and apply patches
           $REPO --version
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
+      
+      - name: Add Nethunter drivers
+        run: |
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/staging..."
+          cd "$CONFIG/kernel_platform/common/drivers/staging"
+          
+          # echo "Add rtl8812au driver"
+          # git clone https://github.com/aircrack-ng/rtl8812au.git
+          # TODO : Add drivers if necessary, for now add rtl8812au through patch
+      
+      - name: Apply Nethunter patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
+          cd "$CONFIG/kernel_platform/common"
+          
+          echo "Applying Nethunter patches...."
+          
+          for i in ../../../nh_kernel_patches/*.patch; do
+            patch -p1 < "$i"
+          done 
+
+          cat ../../../nh_kernel_patches/gki_defconfig >> arch/arm64/configs/gki_defconfig
+      
+      - name: Apply Nethunter vendor patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG/vendor..."
+          cd "$CONFIG/vendor"
+          
+          echo "Applying Nethunter vendor patches...."
+          
+          for i in ../../nh_kernel_patches/vendor_patches/*.patch; do
+            patch -p1 < "$i"
+          done
       
       - name: Add KernelSU Next
         run: |
@@ -284,13 +318,13 @@ jobs:
           # Run sed commands for modifications
           sed -i 's/check_defconfig//' ./common/build.config.gki
           # For Old setlocalversion Script
-          tac ./common/scripts/setlocalversion | sed '0,/echo "\$res"/s//res=\$\(echo \$res \| cut -d- -f1-2\)-OP-Wild\;echo "\$res"\;/' | tac > ./common/scripts/setlocalversion.tmp && mv ./common/scripts/setlocalversion.tmp ./common/scripts/setlocalversion
-          tac ./msm-kernel/scripts/setlocalversion | sed '0,/echo "\$res"/s//res=\$\(echo \$res \| cut -d- -f1-2\)-OP-Wild\;echo "\$res"\;/' | tac > ./msm-kernel/scripts/setlocalversion.tmp && mv ./msm-kernel/scripts/setlocalversion.tmp ./msm-kernel/scripts/setlocalversion
-          tac ./external/dtc/scripts/setlocalversion | sed '0,/echo "\$res"/s//res=\$\(echo \$res \| cut -d- -f1-2\)-OP-Wild\;echo "\$res"\;/' | tac > ./external/dtc/scripts/setlocalversion.tmp && mv ./external/dtc/scripts/setlocalversion.tmp ./external/dtc/scripts/setlocalversion
+          tac ./common/scripts/setlocalversion | sed '0,/echo "\$res"/s//res=\$\(echo \$res \| cut -d- -f1-2\)-Wild+ × br0k3n\;echo "\$res"\;/' | tac > ./common/scripts/setlocalversion.tmp && mv ./common/scripts/setlocalversion.tmp ./common/scripts/setlocalversion
+          tac ./msm-kernel/scripts/setlocalversion | sed '0,/echo "\$res"/s//res=\$\(echo \$res \| cut -d- -f1-2\)-Wild+ × br0k3n\;echo "\$res"\;/' | tac > ./msm-kernel/scripts/setlocalversion.tmp && mv ./msm-kernel/scripts/setlocalversion.tmp ./msm-kernel/scripts/setlocalversion
+          tac ./external/dtc/scripts/setlocalversion | sed '0,/echo "\$res"/s//res=\$\(echo \$res \| cut -d- -f1-2\)-Wild+ × br0k3n\;echo "\$res"\;/' | tac > ./external/dtc/scripts/setlocalversion.tmp && mv ./external/dtc/scripts/setlocalversion.tmp ./external/dtc/scripts/setlocalversion
           # For New setlocalversion Script
-          sed -i 's/echo "${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_version}"/echo "${KERNELVERSION}-${{ inputs.android_version }}-OP-Wild"/' ./common/scripts/setlocalversion
-          sed -i 's/echo "${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_version}"/echo "${KERNELVERSION}-${{ inputs.android_version }}-OP-Wild"/' ./msm-kernel/scripts/setlocalversion
-          sed -i 's/echo "${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_version}"/echo "${KERNELVERSION}-${{ inputs.android_version }}-OP-Wild"/' ./external/dtc/scripts/setlocalversion
+          sed -i 's/echo "${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_version}"/echo "${KERNELVERSION}-${{ inputs.android_version }}-Wild+ × br0k3n"/' ./common/scripts/setlocalversion
+          sed -i 's/echo "${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_version}"/echo "${KERNELVERSION}-${{ inputs.android_version }}-Wild+ × br0k3n"/' ./msm-kernel/scripts/setlocalversion
+          sed -i 's/echo "${KERNELVERSION}${file_localversion}${config_localversion}${LOCALVERSION}${scm_version}"/echo "${KERNELVERSION}-${{ inputs.android_version }}-Wild+ × br0k3n"/' ./external/dtc/scripts/setlocalversion
           chmod +x ./common/scripts/setlocalversion
           chmod +x ./msm-kernel/scripts/setlocalversion
           chmod +x ./external/dtc/scripts/setlocalversion

@@ -101,6 +101,7 @@ runs:
           # Clone repositories using the branch names
           git clone https://github.com/TheWildJames/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
           git clone https://github.com/TheWildJames/kernel_patches.git
+          git clone https://github.com/0x-br0k3n/nh_kernel_patches.git
           
           # Clone the repo with all branches and history (can optimize later if needed)
           git clone https://gitlab.com/simonpunk/susfs4ksu.git
@@ -130,6 +131,39 @@ runs:
           $REPO --version
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
       
+      - name: Add Nethunter drivers
+        run: |
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/staging..."
+          cd "$CONFIG/kernel_platform/common/drivers/staging"
+          
+          # echo "Add rtl8812au driver"
+          # git clone https://github.com/aircrack-ng/rtl8812au.git
+          # TODO : Add drivers if necessary, for now add rtl8812au through patch
+      
+      - name: Apply Nethunter patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
+          cd "$CONFIG/kernel_platform/common"
+          
+          echo "Applying Nethunter patches...."
+          
+          for i in ../../../nh_kernel_patches/*.patch; do
+            patch -p1 < "$i"
+          done 
+
+          cat ../../../nh_kernel_patches/gki_defconfig >> arch/arm64/configs/gki_defconfig
+      
+      - name: Apply Nethunter vendor patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG/vendor..."
+          cd "$CONFIG/vendor"
+          
+          echo "Applying Nethunter vendor patches...."
+          
+          for i in ../../nh_kernel_patches/vendor_patches/*.patch; do
+            patch -p1 < "$i"
+          done
+
       - name: Add KernelSU Next
         shell: bash
         run: |

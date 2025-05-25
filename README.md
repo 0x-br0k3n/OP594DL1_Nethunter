@@ -1,4 +1,4 @@
-# Wild Kernels for Android
+# Wild+ × br0k3n Kernels for Android
 
 ## Your warranty is no longer valid!
 
@@ -21,30 +21,10 @@ By flashing this kernel, **YOU** are choosing to make these modifications. If so
 
 ---
 
-# Kernels:
- 
-[GKI](https://github.com/WildKernels/GKI_KernelSU_SUSFS)  
-[Sultan](https://github.com/WildKernels/Sultan_KernelSU_SUSFS)  
-[OnePlus](https://github.com/WildKernels/OnePlus_KernelSU_SUSFS)  
-[Legacy Pixels](https://github.com/WildKernels/Pixel_KernelSU_SUSFS)  
-
----
-
-# Other Links:
-
-[Kernel Patches](https://github.com/WildKernels/kernel_patches)  
-[Old Build Scripts](https://github.com/TheWildJames/kernel_build_scripts)  
-[Horizon Kernel Flasher](https://github.com/libxzr/HorizonKernelFlasher)  
-
----
-
 # Installation instructions: 
 
-Follow the steps for GKI:  
-[Installation](https://kernelsu.org/guide/installation.html)
-
-To get boot.img format:  
-[Get My Kernel Format](https://github.com/TheWildJames/Get_My_Kernel_Format)
+Download Kernel Flashed made by fatalcoder524
+Flash the AK3 zip
 
 ---
 
@@ -86,14 +66,18 @@ Flashing this kernel will void your warranty, and there is always a risk of bric
 
 - [X] Get Stoned & Build kernels!
 
+<<<<<<< HEAD
 ---
 
 [Telegram](https://t.me/TheWildJames)  
 [Telegram Group](https://t.me/Wild_Kernels)  
 
+=======
+>>>>>>> dcb1ece (Add nethunter support)
 # Special thanks to the following people for their contributions!
 This helps me alot! <3
 
+fatalcoder524 , IamCOD3X
 [simonpunk](https://gitlab.com/simonpunk/susfs4ksu.git) - Created SUSFS!  
 [sidex15](https://github.com/sidex15) - Created module!  
 [backslashxx](https://github.com/backslashxx) - Helped with patches!  
