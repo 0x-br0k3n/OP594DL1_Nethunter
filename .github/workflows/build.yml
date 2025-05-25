@@ -353,6 +353,9 @@ jobs:
           rm ./kernel_platform/common/android/abi_gki_protected_exports_* || echo "No protected exports!"
           rm ./kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
           
+          # Add updated module.order
+          cp ../nh_kernel_patches/modules.order ./kernel_platform/common/android/gki_aarch64_modules
+          
           BUILD_TYPE="gki"
           BAZEL_ARGS=(--jobs=$(nproc --all) --lto=thin)
           if [ "${{ inputs.soc }}" == "sun" ]; then
