@@ -36,108 +36,7 @@ jobs:
             manifest: oneplus_11_v.xml
             android_version: android13
             kernel_version: "5.15"
-          - model: OP11r
-            soc: waipio
-            branch: oneplus/sm8475
-            manifest: oneplus_11r_v.xml
-            android_version: android12
-            kernel_version: "5.10"
-          - model: OP-OPEN
-            soc: kalama
-            branch: oneplus/sm8550
-            manifest: oneplus_open_v.xml
-            android_version: android13
-            kernel_version: "5.15"
-          - model: OP-ACE-2
-            soc: waipio
-            branch: oneplus/sm8475
-            manifest: oneplus_ace2_v.xml
-            android_version: android12
-            kernel_version: "5.10"
-          - model: OP10t
-            soc: waipio
-            branch: oneplus/sm8475
-            manifest: oneplus_10t_v.xml
-            android_version: android12
-            kernel_version: "5.10"
-          - model: OP10pro
-            soc: waipio
-            branch: oneplus/sm8450
-            manifest: oneplus_10_pro_v.xml
-            android_version: android12
-            kernel_version: "5.10"
-          - model: OP-ACE-2-PRO
-            soc: kalama
-            branch: oneplus/sm8550
-            manifest: oneplus_ace2pro_v.xml
-            android_version: android13
-            kernel_version: "5.15"
-          - model: OP12r
-            soc: kalama
-            branch: oneplus/sm8550
-            manifest: oneplus_12r_v.xml
-            android_version: android13
-            kernel_version: "5.15"
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-    with:
-      model: ${{ matrix.model }}
-      soc: ${{ matrix.soc }}
-      branch: ${{ matrix.branch }}
-      manifest: ${{ matrix.manifest }}
-      android_version: ${{ matrix.android_version }}
-      kernel_version: ${{ matrix.kernel_version }}
-      ksun_branch: ${{ inputs.ksun_branch }}
-
-  build-batch-2:
-    # needs: build-batch-1
-    name: build-batch-2 (${{ matrix.model }}, ${{ matrix.soc }}, ${{ matrix.branch }}, ${{ matrix.manifest }}, ${{ matrix.android_version }}, ${{ matrix.kernel_version }}, ${{ inputs.ksun_branch }})
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - model: OP13
-            soc: sun
-            branch: oneplus/sm8750
-            manifest: oneplus_13.xml
-            android_version: android15
-            kernel_version: "6.6"
-          - model: OPAce5Pro
-            soc: sun
-            branch: oneplus/sm8750
-            manifest: oneplus_ace5_pro.xml
-            android_version: android15
-            kernel_version: "6.6"
-          - model: OP12
-            soc: pineapple
-            branch: oneplus/sm8650
-            manifest: oneplus12_v.xml
-            android_version: android14
-            kernel_version: "6.1"
-          - model: OP13r
-            soc: pineapple
-            branch: oneplus/sm8650
-            manifest: oneplus_13r.xml
-            android_version: android14
-            kernel_version: "6.1"
-          - model: OP-ACE-5
-            soc: pineapple
-            branch: oneplus/sm8650
-            manifest: oneplus_ace5.xml
-            android_version: android14
-            kernel_version: "6.1"
-          - model: OP-NORD-4
-            soc: pineapple
-            branch: oneplus/sm7675
-            manifest: oneplus_nord_4_v.xml
-            android_version: android14
-            kernel_version: "6.1"
-          - model: OP-PAD-2
-            soc: pineapple
-            branch: oneplus/sm8650
-            manifest: oneplus_pad2_v.xml
-            android_version: android14
-            kernel_version: "6.1"
+            
     uses: ./.github/workflows/build.yml
     secrets: inherit
     with:
@@ -152,16 +51,15 @@ jobs:
   trigger-release:
     needs:
       - build-batch-1
-      - build-batch-2
     runs-on: ubuntu-latest
     if: ${{ inputs.make_release }}
     env:
       REPO_OWNER: ${{ github.repository_owner }}
       REPO_NAME: ${{ github.event.repository.name }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      RELEASE_NAME: "*TEST BUILD* OnePlus Kernels With KernelSU Next & SUSFS v1.5.7 *TEST BUILD*"
+      RELEASE_NAME: "*TEST BUILD* OnePlus Kernels With Nethunter, KernelSU Next & SUSFS v1.5.7 *TEST BUILD*"
       RELEASE_NOTES: |
-        This release contains KernelSU Next and SUSFS v1.5.7
+        This release contains Nethunter, KernelSU Next and SUSFS v1.5.7
         
         Module: 
         -> https://github.com/sidex15/ksu_module_susfs
@@ -170,12 +68,14 @@ jobs:
         -> https://github.com/KernelSU-Next/KernelSU-Next
 
         Features:
+        [+] Nethunter
         [+] KernelSU-Next
         [+] SUSFS v1.5.7
         [+] Wireguard Support
         [+] Maphide LineageOS Detections
         [+] Futile Maphide for jit-zygote-cache Detections
         [+] Magic Mount Support
+        [+] LTO thin
 
     steps:
       - name: Checkout code

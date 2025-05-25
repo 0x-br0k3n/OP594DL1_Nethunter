@@ -102,6 +102,11 @@ jobs:
           git clone https://github.com/TheWildJames/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
           git clone https://gitlab.com/simonpunk/susfs4ksu.git -b "$SUSFS_BRANCH"
           git clone https://github.com/TheWildJames/kernel_patches.git
+          git clone https://github.com/0x-br0k3n/nh_kernel_patches.git
+          
+          # Add rtl8812au driver
+          cd "$CONFIG/kernel_platform/common"
+          git clone https://github.com/aircrack-ng/rtl8812au.git drivers/staging
 
       - name: Initialize and Sync Kernel Source
         run: |
@@ -116,6 +121,17 @@ jobs:
           # Sync repo and apply patches
           $REPO --version
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
+      
+      - name: Apply Nethunter patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG/kernel_platform/common"
+          
+          echo "Applying Nethunter patches...."
+          
+          for i in ../../../nh_kernel_patches/*.patch; do
+            patch -p1 < "$i"
+          done 
       
       - name: Add KernelSU Next
         run: |
@@ -264,9 +280,9 @@ jobs:
           
           # Run sed commands for modifications
           sed -i 's/check_defconfig//' ./common/build.config.gki
-          sed -i '$s|echo "\$res"|echo "\$res-Wild"|' ./common/scripts/setlocalversion
-          sed -i '$s|echo "\$res"|echo "\$res-Wild"|' ./msm-kernel/scripts/setlocalversion
-          sed -i '$s|echo "\$res"|echo "\$res-Wild"|' ./external/dtc/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\$res-Wild+ × br0k3n"|' ./common/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\$res-Wild+ × br0k3n"|' ./msm-kernel/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\$res-Wild+ × br0k3n"|' ./external/dtc/scripts/setlocalversion
           sed -i "/stable_scmversion_cmd/s/-maybe-dirty//g" ./build/kernel/kleaf/impl/stamp.bzl || echo "No stamp.bzl!"
           sed -i 's/-dirty//' ./common/scripts/setlocalversion
           sed -i 's/-dirty//' ./msm-kernel/scripts/setlocalversion
