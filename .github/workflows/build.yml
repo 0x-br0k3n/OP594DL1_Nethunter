@@ -104,10 +104,6 @@ jobs:
           git clone https://github.com/TheWildJames/kernel_patches.git
           git clone https://github.com/0x-br0k3n/nh_kernel_patches.git
           
-          # Add rtl8812au driver
-          cd "$CONFIG/kernel_platform/common"
-          git clone https://github.com/aircrack-ng/rtl8812au.git drivers/staging
-
       - name: Initialize and Sync Kernel Source
         run: |
           echo "Creating folder for configuration: $CONFIG..."
@@ -121,6 +117,14 @@ jobs:
           # Sync repo and apply patches
           $REPO --version
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
+      
+      - name: Add Nethunter drivers
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG/kernel_platform/common"
+          
+          echo "Add rtl8812au driver"
+          git clone https://github.com/aircrack-ng/rtl8812au.git drivers/staging
       
       - name: Apply Nethunter patches
         run: |
