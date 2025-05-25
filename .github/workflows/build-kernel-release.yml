@@ -75,9 +75,9 @@ jobs:
       REPO_OWNER: ${{ github.repository_owner }}
       REPO_NAME: ${{ github.event.repository.name }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      RELEASE_NAME: "*TEST BUILD* OnePlus Kernels With KernelSU Next & SUSFS v1.5.7 *TEST BUILD*"
+      RELEASE_NAME: "*TEST BUILD* OnePlus Kernels With Nethunter, KernelSU Next & SUSFS v1.5.7 *TEST BUILD*"
       RELEASE_NOTES: |
-        This release contains KernelSU Next and SUSFS v1.5.7
+        This release contains Nethunter, KernelSU Next and SUSFS v1.5.7
         
         Module: 
         -> https://github.com/sidex15/ksu_module_susfs
@@ -93,6 +93,7 @@ jobs:
         [+] Maphide LineageOS Detections
         [+] Futile Maphide for jit-zygote-cache Detections
         [+] Magic Mount Support
+        [+] LTO thin
         [+] Ptrace message leak fix for kernels < 5.16
         [+] CMD_SUSFS_HIDE_SUS_MNTS_FOR_ALL_PROCS Support for all kernels.
         [+] Manual Hooks [scope_min_manual_hooks_v1.4]
