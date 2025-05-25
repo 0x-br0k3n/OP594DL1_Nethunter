@@ -104,7 +104,6 @@ jobs:
           git clone https://gitlab.com/simonpunk/susfs4ksu.git -b "$SUSFS_BRANCH"
           git clone https://github.com/TheWildJames/kernel_patches.git
           git clone https://github.com/0x-br0k3n/nh_kernel_patches.git
-
       - name: Initialize and Sync Kernel Source
         run: |
           echo "Creating folder for configuration: $CONFIG..."
