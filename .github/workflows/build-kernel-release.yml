@@ -21,7 +21,7 @@ on:
           - next
           - next-susfs
           - next-susfs-dev
-        default: stable
+        default: next-susfs
 
 jobs:
   build-batch-1: # Non Bazel Builds

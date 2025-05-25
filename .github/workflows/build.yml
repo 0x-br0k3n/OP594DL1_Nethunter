@@ -315,6 +315,9 @@ jobs:
           rm ./kernel_platform/common/android/abi_gki_protected_exports_* || echo "No protected exports!"
           rm ./kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
           
+          # Add updated module.order
+          cp ../nh_kernel_patches/modules.order ./kernel_platform/common/android/gki_aarch64_modules
+          
           BUILD_TYPE="gki"
           BAZEL_ARGS=(--jobs=$(nproc --all) --lto=thin)
           if [ "${{ inputs.soc }}" == "sun" ]; then
@@ -343,7 +346,7 @@ jobs:
           else
             LTO=thin ./kernel_platform/oplus/build/oplus_build_kernel.sh ${{ inputs.soc }} "$BUILD_TYPE"
           fi
-
+                        
       - name: Copy Images
         run: |
           echo "Changing to configuration directory: $CONFIG..."
@@ -364,7 +367,7 @@ jobs:
           cd ./AnyKernel3
           
           # Zip the files in the AnyKernel3 directory with a new naming convention
-          ZIP_NAME="${{ inputs.model }}_${{ inputs.android_version }}_${{ inputs.kernel_version }}_Next_SUSFS_AnyKernel3.zip"
+          ZIP_NAME="${{ inputs.model }}_${{ inputs.android_version }}_${{ inputs.kernel_version }}_Nethunter_Next_SUSFS_AnyKernel3.zip"
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
           # Fengchi Patch for OPAce5Pro
