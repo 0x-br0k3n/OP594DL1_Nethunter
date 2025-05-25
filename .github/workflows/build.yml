@@ -121,10 +121,10 @@ jobs:
       - name: Add Nethunter drivers
         run: |
           echo "Changing to configuration directory: $CONFIG..."
-          cd "$CONFIG/kernel_platform/common"
+          cd "$CONFIG/kernel_platform/common/drivers/staging"
           
           echo "Add rtl8812au driver"
-          git clone https://github.com/aircrack-ng/rtl8812au.git drivers/staging
+          git clone https://github.com/aircrack-ng/rtl8812au.git
       
       - name: Apply Nethunter patches
         run: |
