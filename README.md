@@ -16,7 +16,10 @@ By flashing this kernel, **YOU** are choosing to make these modifications. If so
 
 # Installation instructions: 
 
-Download Kernel Flashed made by fatalcoder524
+[![Build and Release OnePlus Kernels](https://github.com/0x-br0k3n/OP594DL1_Nethunter/actions/workflows/build-kernel-release.yml/badge.svg)](https://github.com/0x-br0k3n/OP594DL1_Nethunter/actions/workflows/build-kernel-release.yml)
+
+Download [Kernel Flasher](https://github.com/fatalcoder524/KernelFlasher/releases) made by fatalcoder524\
+Backup old boot\
 Flash the AK3 zip
 
 ---
