@@ -286,9 +286,9 @@ jobs:
           
           # Run sed commands for modifications
           sed -i 's/check_defconfig//' ./common/build.config.gki
-          sed -i '$s|echo "\$res"|echo "\$res-Wild+ × br0k3n"|' ./common/scripts/setlocalversion
-          sed -i '$s|echo "\$res"|echo "\$res-Wild+ × br0k3n"|' ./msm-kernel/scripts/setlocalversion
-          sed -i '$s|echo "\$res"|echo "\$res-Wild+ × br0k3n"|' ./external/dtc/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\Wild+ × br0k3n"|' ./common/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\Wild+ × br0k3n"|' ./msm-kernel/scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\Wild+ × br0k3n"|' ./external/dtc/scripts/setlocalversion
           sed -i "/stable_scmversion_cmd/s/-maybe-dirty//g" ./build/kernel/kleaf/impl/stamp.bzl || echo "No stamp.bzl!"
           sed -i 's/-dirty//' ./common/scripts/setlocalversion
           sed -i 's/-dirty//' ./msm-kernel/scripts/setlocalversion
@@ -318,7 +318,7 @@ jobs:
           rm ./kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
           
           # Add updated module.order
-          # cp ../nh_kernel_patches/modules.order ./kernel_platform/common/android/gki_aarch64_modules
+           cp ../nh_kernel_patches/modules.order ./kernel_platform/common/android/gki_aarch64_modules
 
           BUILD_TYPE="gki"
           BAZEL_ARGS=(--jobs=$(nproc --all) --lto=thin)
@@ -356,12 +356,6 @@ jobs:
           
           echo "Copying Image"
           cp ./out/dist/Image ../AnyKernel3/Image 
-          if [ "${{ inputs.model }}" == "OPAce5Pro" ]; then
-            cp ./out/dist/dtbo.img ../AnyKernel3/
-            cp ./out/dist/system_dlkm.erofs.img ../AnyKernel3/system_dlkm.img
-            # cp ./out/dist/vendor_dlkm.img ../AnyKernel3/
-            # cp ./out/dist/vendor_boot.img ../AnyKernel3/
-          fi
 
       - name: Create ZIP Files for Different Formats
         run: |
