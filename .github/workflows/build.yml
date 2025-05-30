@@ -125,6 +125,11 @@ jobs:
           
           echo "Add rtl8812au driver"
           git clone https://github.com/aircrack-ng/rtl8812au.git
+          
+          echo "Add qcacld3.0 driver"
+          git clone https://github.com/OnePlusOSS/android_kernel_modules_and_devicetree_oneplus_sm8550
+          mv android_kernel_modules_and_devicetree_oneplus_sm8550/vendor/qcom/opensource/wlan/* ./
+          rm -rf android_kernel_modules_and_devicetree_oneplus_sm8550
       
       - name: Apply Nethunter patches
         run: |
@@ -317,7 +322,7 @@ jobs:
           rm ./kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
           
           # Add updated module.order
-           cp ../nh_kernel_patches/modules.order ./kernel_platform/common/android/gki_aarch64_modules
+          cp ../nh_kernel_patches/modules.order ./kernel_platform/common/android/gki_aarch64_modules
 
           BUILD_TYPE="gki"
           BAZEL_ARGS=(--jobs=$(nproc --all) --lto=thin)
@@ -347,6 +352,16 @@ jobs:
           else
             LTO=thin ./kernel_platform/oplus/build/oplus_build_kernel.sh ${{ inputs.soc }} "$BUILD_TYPE"
           fi
+                        
+      - name: Upload some files for testing
+        uses: actions/upload-artifact@v4
+        with:
+          name: test_files
+          path: |
+            "$CONFIG/kernel_platform/common/drivers/staging/Kconfig"
+            "$CONFIG/kernel_platform/common/drivers/staging/Makefile"
+            "$CONFIG/kernel_platform/common/arch/arm64/configs/gki_defconfig"
+            "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order"
                         
       - name: Copy Images
         run: |
