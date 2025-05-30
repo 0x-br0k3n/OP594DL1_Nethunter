@@ -130,6 +130,7 @@ jobs:
           git clone https://github.com/OnePlusOSS/android_kernel_modules_and_devicetree_oneplus_sm8550
           mv android_kernel_modules_and_devicetree_oneplus_sm8550/vendor/qcom/opensource/wlan/* ./
           rm -rf android_kernel_modules_and_devicetree_oneplus_sm8550
+          cp qcacld-3.0/core/hdd/inc/* qcacld-3.0/core/hdd/src/
       
       - name: Apply Nethunter patches
         run: |
@@ -352,16 +353,27 @@ jobs:
           else
             LTO=thin ./kernel_platform/oplus/build/oplus_build_kernel.sh ${{ inputs.soc }} "$BUILD_TYPE"
           fi
-                        
-      - name: Upload some files for testing
+         
+      - name: For debugging
+        run: |
+          cd "$CONFIG"
+          mkdir debug
+          cd debug
+          ls "../kernel_platform/common/drivers/staging/" >> drivers.txt
+          cp "../kernel_platform/common/drivers/staging/Kconfig" ./
+          cp "../kernel_platform/common/drivers/staging/Makefile" ./
+          cp "../kernel_platform/common/arch/arm64/configs/gki_defconfig" ./
+          cp "../kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order" ./
+          
+          cd ..
+          zip -r debug.zip debug/*        
+                                                      
+      - name: Upload debug files for testing
         uses: actions/upload-artifact@v4
         with:
-          name: test_files
+          name: Debug
           path: |
-            "$CONFIG/kernel_platform/common/drivers/staging/Kconfig"
-            "$CONFIG/kernel_platform/common/drivers/staging/Makefile"
-            "$CONFIG/kernel_platform/common/arch/arm64/configs/gki_defconfig"
-            "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order"
+            "$CONFIG/debug.zip"          
                         
       - name: Copy Images
         run: |
