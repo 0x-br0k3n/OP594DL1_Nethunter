@@ -209,7 +209,7 @@ jobs:
               echo "Line already present. Skipping SUSFS_HIDE_SUS_MNTS_FOR_ALL_PROCS Patch."
           fi
 
-          KERNEL_VERSION="${{ inputs.kernel_version }}
+          KERNEL_VERSION="${{ inputs.kernel_version }}"
           MIN_VERSION="5.16"
           
           if [ "$(printf '%s\n' "$KERNEL_VERSION" "$MIN_VERSION" | sort -V | head -n1)" = "$KERNEL_VERSION" ]; then
