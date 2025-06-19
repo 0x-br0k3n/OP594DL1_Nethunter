@@ -27,7 +27,7 @@ on:
       ksun_branch:
         required: true
         type: string
-        default: stable
+        default: next
 
 jobs:
   build-kernel-oneplus-kernelsu-susfs:
