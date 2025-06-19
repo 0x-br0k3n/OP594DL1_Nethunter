@@ -62,6 +62,11 @@ Flashing this kernel will void your warranty, and there is always a risk of bric
 
 - [X] Get Stoned & Build kernels!
 
+---
+
+[Telegram](https://t.me/TheWildJames)  
+[Telegram Group](https://t.me/Wild_Kernels)  
+
 # Special thanks to the following people for their contributions!
 This helps me alot! <3
 

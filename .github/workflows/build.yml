@@ -194,8 +194,12 @@ jobs:
           
           # Change to common directory and apply SUSFS patch
           cd ../../common
-          if [ "${{ inputs.soc }}" == "sun" ]; then
-            sed -i '/#include <trace\/hooks\/blk.h>/a #include <trace/hooks/fs.h>' ./fs/namespace.c
+          if [ "${{ inputs.soc }}" = "sun" ]; then
+              if ! grep -qxF '#include <trace/hooks/fs.h>' ./fs/namespace.c; then
+                  sed -i '/#include <trace\/hooks\/blk.h>/a #include <trace\/hooks\/fs.h>' ./fs/namespace.c
+              else
+                  echo "Line already present. Skipping insert."
+              fi
           fi
           patch -p1 < 50_add_susfs_in_gki-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch || true
 
@@ -272,9 +276,9 @@ jobs:
           echo "Adding configuration settings to gki_defconfig..."
           echo "CONFIG_TCP_CONG_ADVANCED=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_TCP_CONG_BBR=y" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_TCP_CONG_BIC=y" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_TCP_CONG_WESTWOOD=y" >> ./common/arch/arm64/configs/gki_defconfig
-          echo "CONFIG_TCP_CONG_HTCP=y" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_TCP_CONG_BIC=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_TCP_CONG_WESTWOOD=n" >> ./common/arch/arm64/configs/gki_defconfig
+          echo "CONFIG_TCP_CONG_HTCP=n" >> ./common/arch/arm64/configs/gki_defconfig
           
           echo "CONFIG_NET_SCH_FQ=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_NET_SCH_FQ_CODEL=y" >> ./common/arch/arm64/configs/gki_defconfig
@@ -381,11 +385,6 @@ jobs:
           ZIP_NAME="${{ inputs.model }}_${{ inputs.android_version }}_${{ inputs.kernel_version }}_Nethunter_Next_SUSFS_AnyKernel3.zip"
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
-          # Fengchi Patch for OPAce5Pro
-          if [ "${{ inputs.model }}" == "OPAce5Pro" ]; then
-            sed -i 's/hmbird/xxbird/g' dtbo.img
-            zip -r "../$ZIP_NAME-CN-version.zip" ./*
-          fi
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
