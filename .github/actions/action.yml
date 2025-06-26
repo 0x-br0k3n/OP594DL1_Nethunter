@@ -132,6 +132,7 @@ runs:
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
       
       - name: Add Nethunter drivers
+        shell: bash
         run: |
           echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/staging..."
           cd "$CONFIG/kernel_platform/common/drivers/staging"
@@ -141,6 +142,7 @@ runs:
           # TODO : Add drivers if necessary, for now add rtl8812au through patch
       
       - name: Apply Nethunter patches
+        shell: bash
         run: |
           echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
           cd "$CONFIG/kernel_platform/common"
@@ -154,6 +156,7 @@ runs:
           cat ../../../nh_kernel_patches/gki_defconfig >> arch/arm64/configs/gki_defconfig
       
       - name: Apply Nethunter vendor patches
+        shell: bash
         run: |
           echo "Changing to configuration directory: $CONFIG/vendor..."
           cd "$CONFIG/vendor"
