@@ -159,6 +159,13 @@ runs:
           done 
 
           cat ../../../nh_kernel_patches/gki_defconfig >> arch/arm64/configs/gki_defconfig
+          
+      - name: Apply modules.order from nh_kernel_patches
+        shell: bash
+        run: |
+            echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
+            cd "$CONFIG/kernel_platform/common"
+            cp ../../../nh_kernel_patches/modules.order android/gki_aarch64_modules
       
       - name: Apply Nethunter vendor patches
         shell: bash
