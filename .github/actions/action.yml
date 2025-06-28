@@ -437,7 +437,7 @@ runs:
             *.zip
             
       - name : Upload debug files
-        if: ${{ inputs.debug == 'true' }}
+        if: if: ${{ inputs.debug == 'true' && always() }}
         uses: actions/upload-artifact@v4
         with:
             name: debug
