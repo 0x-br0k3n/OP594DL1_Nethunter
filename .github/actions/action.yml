@@ -138,7 +138,7 @@ runs:
           cd "$CONFIG/kernel_platform/common/drivers/"
           
           echo "Add aircrack drivers"
-          git clone https://github.com/p3h3n9-pr0j3ct/add-aircrack-for-NetHunter.git
+          git clone https://github.com/0x-br0k3n/add-aircrack-for-NetHunter.git
           mv add-aircrack-for-NetHunter/aircrack ./
           rm -rf add-aircrack-for-NetHunter
       
