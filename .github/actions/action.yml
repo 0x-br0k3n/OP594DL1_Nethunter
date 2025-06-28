@@ -412,14 +412,6 @@ runs:
             LTO=thin ./kernel_platform/oplus/build/oplus_build_kernel.sh ${{ inputs.soc }} "$BUILD_TYPE"
           fi
 
-      - name : Upload debug files
-        if: ${{ inputs.debug == 'true' }}
-        uses: actions/upload-artifact@v4
-        with:
-            name: debug
-            path: |
-                "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order"
-                
       - name: Create ZIP Files for Different Formats
         shell: bash
         run: |
@@ -443,3 +435,12 @@ runs:
           name: kernel-${{ env.CONFIG }}
           path: |
             *.zip
+            
+      - name : Upload debug files
+        if: ${{ inputs.debug == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+            name: debug
+            path: |
+                "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order"
+                
