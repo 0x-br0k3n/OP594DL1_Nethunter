@@ -134,12 +134,13 @@ runs:
       - name: Add Nethunter drivers
         shell: bash
         run: |
-          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/staging..."
-          cd "$CONFIG/kernel_platform/common/drivers/staging"
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/..."
+          cd "$CONFIG/kernel_platform/common/drivers/"
           
-          # echo "Add rtl8812au driver"
-          # git clone https://github.com/aircrack-ng/rtl8812au.git
-          # TODO : Add drivers if necessary, for now add rtl8812au through patch
+          echo "Add aircrack drivers"
+          git clone https://github.com/p3h3n9-pr0j3ct/add-aircrack-for-NetHunter.git
+          mv add-aircrack-for-NetHunter/aircrack ./
+          rm -rf add-aircrack-for-NetHunter
       
       - name: Apply Nethunter patches
         shell: bash
