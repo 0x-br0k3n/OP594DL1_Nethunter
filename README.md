@@ -12,6 +12,23 @@ By flashing this kernel, **YOU** are choosing to make these modifications. If so
 
 ### Proceed at your own risk!
 
+# Kernels:
+ 
+[GKI](https://github.com/WildKernels/GKI_KernelSU_SUSFS)  
+[Sultan](https://github.com/WildKernels/Sultan_KernelSU_SUSFS)  
+[OnePlus](https://github.com/WildKernels/OnePlus_KernelSU_SUSFS)  
+[Legacy Pixels](https://github.com/WildKernels/Pixel_KernelSU_SUSFS)  
+
+---
+
+# Other Links:
+
+[Kernel Patches](https://github.com/WildKernels/kernel_patches)  
+[Old Build Scripts](https://github.com/TheWildJames/kernel_build_scripts)  
+[Kernel Flasher - fatalcoder524 fork](https://github.com/fatalcoder524/KernelFlasher)  
+[Horizon Kernel Flasher](https://github.com/libxzr/HorizonKernelFlasher)  
+>>>>>>> upstream/main
+
 ---
 
 # Installation instructions: 
@@ -58,16 +75,22 @@ Flashing this kernel will void your warranty, and there is always a risk of bric
 
 ---
 
+<<<<<<< HEAD
 # To-DO
 
 - [X] Get Stoned & Build kernels!
 
 =======
 >>>>>>> dcb1ece (Add nethunter support)
+=======
+[Telegram](https://t.me/TheWildJames)  
+[Telegram Group](https://t.me/Wild_Kernels)  
+
+>>>>>>> upstream/main
 # Special thanks to the following people for their contributions!
 This helps me alot! <3
 
-fatalcoder524 , IamCOD3X
+fatalcoder524 , IamCOD3X\
 [simonpunk](https://gitlab.com/simonpunk/susfs4ksu.git) - Created SUSFS!  
 [sidex15](https://github.com/sidex15) - Created module!  
 [backslashxx](https://github.com/backslashxx) - Helped with patches!  
