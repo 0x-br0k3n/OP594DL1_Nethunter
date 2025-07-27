@@ -144,37 +144,6 @@ runs:
           echo "Add aircrack drivers"
           git clone --branch v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git
           
-      - name: Fix rtl8812au Makefile flags conditionally
-        shell: bash
-        run: |
-          RTL_DIR="$CONFIG/kernel_platform/common/drivers/staging/rtl8812au"
-          cd "$RTL_DIR"
-
-          echo "Checking compiler version..."
-          COMPILER=$($CC --version | head -n 1 || echo "unknown")
-          echo "Compiler detected: $COMPILER"
-
-          echo 'int main() { return 0; }' > test.c
-
-          # Check if -Wno-stringop-overread is supported
-          if ! $CC -Wno-stringop-overread -c test.c -o /dev/null 2>/dev/null; then
-            echo "-Wno-stringop-overread is NOT supported. Removing..."
-            sed -i 's/-Wno-stringop-overread//g' Makefile
-          else
-            echo "-Wno-stringop-overread is supported."
-          fi
-
-          # Check if -Werror is supported — allow it only if both flags are fine
-          if ! $CC -Werror -c test.c -o /dev/null 2>/dev/null; then
-            echo "-Werror is NOT supported. Removing..."
-            sed -i 's/-Werror//g' Makefile
-          else
-            echo "-Werror is supported."
-          fi
-
-          rm -f test.c
-    
-
       - name: Apply Nethunter patches
         shell: bash
         run: |
