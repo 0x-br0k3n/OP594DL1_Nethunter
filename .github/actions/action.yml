@@ -142,10 +142,8 @@ runs:
           cd "$CONFIG/kernel_platform/common/drivers/"
           
           echo "Add aircrack drivers"
-          git clone https://github.com/0x-br0k3n/add-aircrack-for-NetHunter.git
-          mv add-aircrack-for-NetHunter/aircrack ./
-          rm -rf add-aircrack-for-NetHunter
-      
+          git clone --branch v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git 
+
       - name: Apply Nethunter patches
         shell: bash
         run: |
