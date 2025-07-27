@@ -138,8 +138,8 @@ runs:
       - name: Add Nethunter drivers
         shell: bash
         run: |
-          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/..."
-          cd "$CONFIG/kernel_platform/common/drivers/"
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/staging/..."
+          cd "$CONFIG/kernel_platform/common/drivers/staging/"
           
           echo "Add aircrack drivers"
           git clone --branch v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git 
