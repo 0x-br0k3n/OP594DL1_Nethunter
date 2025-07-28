@@ -141,15 +141,6 @@ runs:
           $REPO --version
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
       
-      - name: Add Nethunter drivers
-        shell: bash
-        run: |
-          echo "Changing to configuration directory: $CONFIG/kernel_platform/common/drivers/staging/..."
-          cd "$CONFIG/kernel_platform/common/drivers/staging/"
-          
-          echo "Add aircrack drivers"
-          git clone --branch v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git
-          
       - name: Apply Nethunter patches
         shell: bash
         run: |

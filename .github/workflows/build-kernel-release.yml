@@ -29,6 +29,11 @@ on:
         required: true
         type: boolean
         default: true
+      manifest:
+        description: "Choose Manifest (Paste oneplus_11_v.xml to use default)"
+        type: string
+        required: true
+        default: "https://raw.githubusercontent.com/0x-br0k3n/nh_kernel_patches/refs/heads/main/manifest/oneplus_11_v.xml"
 
 jobs:
   build-batch-1: # Non Bazel Builds
@@ -65,7 +70,7 @@ jobs:
           model: ${{ matrix.model }}
           soc: ${{ matrix.soc }}
           branch: ${{ matrix.branch }}
-          manifest: ${{ matrix.manifest }}
+          manifest: ${{ inputs.manifest }}
           android_version: ${{ matrix.android_version }}
           kernel_version: ${{ matrix.kernel_version }}
           ksun_branch: ${{ inputs.ksun_branch }}
