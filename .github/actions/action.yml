@@ -446,6 +446,7 @@ runs:
                 /home/runner/work/OP594DL1_Nethunter/OP594DL1_Nethunter/OP11/kernel_platform/out/msm-kernel-kalama-gki/dist/kernel-uapi-headers.tar.gz
                 /home/runner/work/OP594DL1_Nethunter/OP594DL1_Nethunter/OP11/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/staging/lib/modules/5.15.149-android13-Wild+ × br0k3n/kernel/drivers/block/*/*.ko
                 /home/runner/work/OP594DL1_Nethunter/OP594DL1_Nethunter/OP11/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/staging/lib/modules/5.15.149-android13-Wild+ × br0k3n/kernel/drivers/*/*.ko
+                /home/runner/work/OP594DL1_Nethunter/OP594DL1_Nethunter/OP11/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/abi_symbollist.raw
                 
                 
       - name: Create ZIP Files for Different Formats
