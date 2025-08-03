@@ -117,7 +117,7 @@ jobs:
         run: |
           echo "=== Start building the release notes ==="
           cat << EOF > release_notes.md
-          This release contains KernelSU Next, Nethunter and SUSFS v1.5.9
+          This release contains KernelSU Next,Nethunter and SUSFS v1.5.9
           
           Module: 
           -> https://github.com/sidex15/ksu_module_susfs  
@@ -140,10 +140,13 @@ jobs:
             fi
           done < <(find downloaded-artifacts -name "*.txt" -type f | sort)
           
+          # === Add features and finalize ===
+          cat << 'EOF' >> release_notes.md
+          
           ### Features
           - [+] KernelSU-Next
-          - [+] SUSFS v1.5.9
           - [+] Nethunter
+          - [+] SUSFS v1.5.9
           - [+] Wireguard Support
           - [+] Maphide LineageOS Detections
           - [+] Futile Maphide for jit-zygote-cache Detections
@@ -153,6 +156,10 @@ jobs:
           - [+] CONFIG_TMPFS_XATTR Support [Mountify Support]
           - [+] BBR v1 Support.
           EOF
+          
+          # === Output for debugging ===
+          echo "--- Final Release Notes ---"
+          cat release_notes.md
           
 
       - name: Create GitHub Release
