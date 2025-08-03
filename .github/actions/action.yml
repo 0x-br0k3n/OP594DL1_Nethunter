@@ -529,7 +529,7 @@ runs:
           path: |
             ${{ inputs.model }}.txt
             *.zip
-            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/system_dklm.img
-            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dklm.img
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/system_dlkm.img
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dlkm.img
             ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img
             ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/Image
