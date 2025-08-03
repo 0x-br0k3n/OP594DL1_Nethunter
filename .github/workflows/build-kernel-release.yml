@@ -155,7 +155,6 @@ jobs:
           - [+] Manual Hooks [scope_min_manual_hooks_v1.4]
           - [+] CONFIG_TMPFS_XATTR Support [Mountify Support]
           - [+] BBR v1 Support.
-          - [+] HMBIRD scx support for OnePlus 13 & OnePlus Ace 5 Pro.
           EOF
           
           # === Output for debugging ===
