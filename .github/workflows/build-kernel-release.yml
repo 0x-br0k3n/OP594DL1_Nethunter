@@ -157,9 +157,6 @@ jobs:
           - [+] BBR v1 Support.
           EOF
           
-          # === Output for debugging ===
-          echo "--- Final Release Notes ---"
-          cat release_notes.md
 
       - name: Create GitHub Release
         run: |
