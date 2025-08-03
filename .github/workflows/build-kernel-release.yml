@@ -140,9 +140,6 @@ jobs:
             fi
           done < <(find downloaded-artifacts -name "*.txt" -type f | sort)
           
-          # === Add features and finalize ===
-          cat << 'EOF' >> release_notes.md
-          
           ### Features
           - [+] KernelSU-Next
           - [+] SUSFS v1.5.9

@@ -441,7 +441,10 @@ runs:
         with:
             name: debug
             path: |
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/
+                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/Module.symvers
+                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/abi_symbollist.raw
+                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order
+                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules-only.symvers
                 ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/staging/lib/modules/5.15.149-android13-Wild+ × br0k3n/kernel/
                 ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/
                 
@@ -455,6 +458,9 @@ runs:
           
           echo "Copying Image"
           cp ./out/dist/Image ../AnyKernel3/Image
+          cp ./out/dist/system_dklm.img ../system_dklm.img
+          cp ./out/dist/vendor_dklm.img ../vendor_dklm.img
+          cp ./out/dist/boot.img ../boot.img
           
           echo "Navigating to AnyKernel3 directory..."
           cd ../AnyKernel3
@@ -526,3 +532,4 @@ runs:
           path: |
             ${{ inputs.model }}.txt
             *.zip
+            *.img
