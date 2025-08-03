@@ -461,6 +461,7 @@ runs:
           cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/system_dklm.img ../system_dklm.img
           cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dklm.img ../vendor_dklm.img
           cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img ../boot.img
+          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/Image ../Image
           
           echo "Navigating to AnyKernel3 directory..."
           cd ../AnyKernel3
