@@ -456,8 +456,6 @@ runs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
 
-          echo $(tree)
-          
           echo "Copying Image"
           cp ./out/dist/Image ../AnyKernel3/Image
           
