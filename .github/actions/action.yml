@@ -460,10 +460,6 @@ runs:
           
           echo "Copying Image"
           cp ./out/dist/Image ../AnyKernel3/Image
-          cp "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/dist/system_dklm.img" ../system_dklm.img
-          cp "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dklm.img" ../vendor_dklm.img
-          cp "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img" ../boot.img
-          cp "$CONFIG/kernel_platform/out/msm-kernel-kalama-gki/dist/Image" ../Image
           
           echo "Navigating to AnyKernel3 directory..."
           cd ../AnyKernel3
@@ -535,5 +531,7 @@ runs:
           path: |
             ${{ inputs.model }}.txt
             *.zip
-            *.img
-            Image
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/system_dklm.img
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dklm.img
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/Image
