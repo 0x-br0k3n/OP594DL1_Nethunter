@@ -174,7 +174,7 @@ jobs:
 
       - name: Upload Release Assets Dynamically
         run: |
-          for file in ./downloaded-artifacts/kernel-*/*.zip; do
+          for file in ./downloaded-artifacts/kernel-*/*.{zip,img}; do
               if [ -d "$file" ]; then
                   continue
               fi
