@@ -458,9 +458,9 @@ runs:
 
           echo "Copying Image"
           cp ./out/dist/Image ../AnyKernel3/Image
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/system_dlkm.img ./system_dlkm.img
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dlkm.img ./vendor_dlkm.img
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img ./boot.img
+          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/system_dlkm.img ../system_dlkm.img
+          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dlkm.img ../vendor_dlkm.img
+          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img ../boot.img
           
           echo "Navigating to AnyKernel3 directory..."
           cd ../AnyKernel3
