@@ -475,9 +475,7 @@ runs:
           cd "$CONFIG"
             
           mkdir -p ../kernel_modules
-          while read -r path; do
-            cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/$(basename "$path") ../kernel_modules/$(basename "$path")
-          done < ./kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order
+          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/*.ko ../kernel_modules/
           
           cd ../kernel_modules
           zip -r "../kernel_modules.zip" ./*
