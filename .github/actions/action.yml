@@ -458,10 +458,6 @@ runs:
 
           echo "Copying Image"
           cp ./out/dist/Image ../AnyKernel3/Image
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/system_dlkm.img ../system_dlkm.img
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/vendor_dlkm.img ../vendor_dlkm.img
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/boot.img ../boot.img
-          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/super.img ../super.img
           
           echo "Navigating to AnyKernel3 directory..."
           cd ../AnyKernel3
@@ -470,6 +466,21 @@ runs:
           ZIP_NAME="AnyKernel3_${{ inputs.model }}_${{ inputs.android_version }}-${{ inputs.kernel_version }}_Next_${{ env.KSUVER }}_SUSFS_${{ env.SUSVER }}.zip"
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
+          
+      - name: Create Zip Files Kernel Modules
+        id: create_modules_zip
+        shell: bash
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG"
+            
+          mkdir -p ../kernel_modules
+          while read -r path; do
+            cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/$(basename "$path") ../kernel_modules/$(basename "$path")
+          done < ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order
+          
+          cd ../kernel_modules
+          zip -r "../kernel_modules.zip" ./*
 
       - name: Save Build Metadata
         shell: bash
