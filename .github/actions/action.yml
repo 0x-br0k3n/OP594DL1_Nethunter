@@ -31,6 +31,10 @@ inputs:
     required: true
     type: string
     default: ""
+  debug_files:
+    required: true
+    type: boolean
+    default: true
 
 runs:
     using: "composite"
@@ -465,18 +469,7 @@ runs:
             ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/
           if-no-files-found: warn
           compression-level: 6
-          overwrite: false
-        
-      - name: Upload Core Hook Artifact
-        if: ${{ inputs.debug_files == 'true' && always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: core-hook
-          path: |
-            ${{ env.CONFIG }}/kernel_platform/common/drivers/*/core_hook.c
-          if-no-files-found: warn
-          compression-level: 6
-          overwrite: false                
+          overwrite: false       
                 
       - name: Create ZIP Files for Different Formats
         id: create_zip
