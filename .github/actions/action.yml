@@ -447,6 +447,7 @@ runs:
                 ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules-only.symvers
                 ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/staging/lib/modules/5.15.149-android13-Wild+ × br0k3n/kernel/
                 ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/
+                ${{ env.CONFIG }}/kernel_platform/common/kernel/core_hook.c
                 
                 
       - name: Create ZIP Files for Different Formats
