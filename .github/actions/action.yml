@@ -473,7 +473,7 @@ runs:
         with:
           name: core-hook
           path: |
-            ${{ env.CONFIG }}/kernel_platform/common/kernel/core_hook.c
+            ${{ env.CONFIG }}/kernel_platform/common/drivers/*/core_hook.c
           if-no-files-found: warn
           compression-level: 6
           overwrite: false                
