@@ -31,10 +31,6 @@ inputs:
     required: true
     type: string
     default: ""
-  debug_files:
-    required: true
-    type: boolean
-    default: true
 
 runs:
     using: "composite"
@@ -435,20 +431,48 @@ runs:
             LTO=thin ./kernel_platform/oplus/build/oplus_build_kernel.sh ${{ inputs.soc }} "$BUILD_TYPE"
           fi
 
-      - name : Upload debug files
-        if: ${{ inputs.debug_files == 'true' && always() }}
+      - name: Upload Debug Artifacts
         uses: actions/upload-artifact@v4
         with:
-            name: debug
-            path: |
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/Module.symvers
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/abi_symbollist.raw
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules-only.symvers
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/staging/lib/modules/5.15.149-android13-Wild+ × br0k3n/kernel/
-                ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/
-                ${{ env.CONFIG }}/kernel_platform/common/kernel/core_hook.c
-                
+          name: debug
+          path: |
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/Module.symvers
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/abi_symbollist.raw
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules.order
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/common/modules-only.symvers
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
+        
+      - name: Upload Kernel Modules Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-modules
+          path: |
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/gki_kernel/staging/lib/modules/5.15.149-android13-Wild+ × br0k3n/kernel/
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
+        
+      - name: Upload Dist Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: |
+            ${{ env.CONFIG }}/kernel_platform/out/msm-kernel-kalama-gki/dist/
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false
+        
+      - name: Upload Core Hook Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-hook
+          path: |
+            ${{ env.CONFIG }}/kernel_platform/common/kernel/core_hook.c
+          if-no-files-found: warn
+          compression-level: 6
+          overwrite: false                
                 
       - name: Create ZIP Files for Different Formats
         id: create_zip
