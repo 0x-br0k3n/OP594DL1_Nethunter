@@ -432,6 +432,7 @@ runs:
           fi
 
       - name: Upload Debug Artifacts
+        if: ${{ inputs.debug_files == 'true' && always() }}
         uses: actions/upload-artifact@v4
         with:
           name: debug
@@ -445,6 +446,7 @@ runs:
           overwrite: false
         
       - name: Upload Kernel Modules Artifact
+        if: ${{ inputs.debug_files == 'true' && always() }}
         uses: actions/upload-artifact@v4
         with:
           name: kernel-modules
@@ -455,6 +457,7 @@ runs:
           overwrite: false
         
       - name: Upload Dist Artifacts
+        if: ${{ inputs.debug_files == 'true' && always() }}
         uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -465,6 +468,7 @@ runs:
           overwrite: false
         
       - name: Upload Core Hook Artifact
+        if: ${{ inputs.debug_files == 'true' && always() }}
         uses: actions/upload-artifact@v4
         with:
           name: core-hook
