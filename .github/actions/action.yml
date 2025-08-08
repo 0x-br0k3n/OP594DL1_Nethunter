@@ -141,39 +141,6 @@ runs:
           $REPO --version
           $REPO --trace sync -c --no-clone-bundle --no-tags --optimized-fetch -j$(nproc --all) --fail-fast
       
-      - name: Apply Nethunter patches
-        shell: bash
-        run: |
-          echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
-          cd "$CONFIG/kernel_platform/common"
-          
-          echo "Applying Nethunter patches...."
-          
-          for i in ../../../nh_kernel_patches/*.patch; do
-            patch -p1 < "$i"
-          done 
-
-          cat ../../../nh_kernel_patches/gki_defconfig >> arch/arm64/configs/gki_defconfig
-          
-      - name: Apply modules.order from nh_kernel_patches
-        shell: bash
-        run: |
-            echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
-            cd "$CONFIG/kernel_platform/common"
-            cp ../../../nh_kernel_patches/modules.order android/gki_aarch64_modules
-      
-      - name: Apply Nethunter vendor patches
-        shell: bash
-        run: |
-          echo "Changing to configuration directory: $CONFIG/vendor..."
-          cd "$CONFIG/vendor"
-          
-          echo "Applying Nethunter vendor patches...."
-          
-          for i in ../../nh_kernel_patches/vendor_patches/*.patch; do
-            patch -p1 < "$i"
-          done
-
       - name: Add KernelSU Next
         shell: bash
         run: |
@@ -354,6 +321,39 @@ runs:
           echo "CONFIG_IP6_NF_TARGET_HL=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_IP6_NF_MATCH_HL=y" >> ./common/arch/arm64/configs/gki_defconfig
 
+      - name: Apply Nethunter patches
+        shell: bash
+        run: |
+          echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
+          cd "$CONFIG/kernel_platform/common"
+          
+          echo "Applying Nethunter patches...."
+          
+          for i in ../../../nh_kernel_patches/*.patch; do
+            patch -p1 < "$i"
+          done 
+
+          cat ../../../nh_kernel_patches/gki_defconfig >> arch/arm64/configs/gki_defconfig
+          
+      - name: Apply modules.order from nh_kernel_patches
+        shell: bash
+        run: |
+            echo "Changing to configuration directory: $CONFIG/kernel_platform/common..."
+            cd "$CONFIG/kernel_platform/common"
+            cp ../../../nh_kernel_patches/modules.order android/gki_aarch64_modules
+      
+      - name: Apply Nethunter vendor patches
+        shell: bash
+        run: |
+          echo "Changing to configuration directory: $CONFIG/vendor..."
+          cd "$CONFIG/vendor"
+          
+          echo "Applying Nethunter vendor patches...."
+          
+          for i in ../../nh_kernel_patches/vendor_patches/*.patch; do
+            patch -p1 < "$i"
+          done
+          
       - name: Run sed and perl Commands
         shell: bash
         run: |
