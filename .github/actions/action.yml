@@ -489,7 +489,21 @@ runs:
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
           
-      - name: Create Zip Files Kernel Modules
+      - name: Create Zip Files for dlkm images
+        id: create_dlkm_zip
+        shell: bash
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG"
+            
+          mkdir -p ../dlkm_images
+          cp ./kernel_platform/out/msm-kernel-kalama-gki/dist/*_dlkm.img ../dlkm_images/
+          
+          cd ../dlkm_images
+          zip -r "../dlkm_images.zip" ./*
+          
+          
+      - name: Create Zip Files for Kernel Modules
         id: create_modules_zip
         shell: bash
         run: |
