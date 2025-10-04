@@ -512,6 +512,8 @@ runs:
         CONFIG_MT7615_COMMON=m
         CONFIG_MT7915E=m
         CONFIG_MT7921E=m
+        
+        CONFIG_MAC80211_LEDS=m
 
         EOF
 
